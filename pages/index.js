@@ -20,13 +20,13 @@ export default function Home() {
             <>
               <Link
                 href="/api/auth/login"
-                className="text-whit rounded-md bg-hangin-100 px-4 py-2 hover:bg-hangin-200"
+                className="rounded-md bg-hangin-100 px-4 py-2 text-white hover:bg-hangin-200"
               >
                 Login
               </Link>
               <Link
                 href="/api/auth/signup"
-                className="text-whit rounded-md bg-hangin-100 px-4 py-2 hover:bg-hangin-200"
+                className="rounded-md bg-hangin-100 px-4 py-2 text-white hover:bg-hangin-200"
               >
                 Sign up
               </Link>

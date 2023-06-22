@@ -1,0 +1,18 @@
+.normal-bg {
+  @apply bg-normal-light dark:bg-normal-dark;
+}
+.normal-text {
+  @apply text-front-dark dark:text-front-light;
+}
+.normal-footer-bg {
+  @apply bg-footer-light dark:bg-footer-dark;
+}
+.normal-sidebar-bg {
+  @apply bg-side-light dark:bg-side-dark;
+}
+.sidebar {
+  @apply bg-side-light text-front-light dark:bg-side-dark;
+}
+.chat-window{
+  @apply normal-text normal-bg
+}
