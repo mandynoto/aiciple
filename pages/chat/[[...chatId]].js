@@ -1,19 +1,19 @@
-import { ChatSidebar } from "components/ChatSidebar";
-import Head from "next/head";
-import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { ChatSidebar } from "components/ChatSidebar"
+import Head from "next/head"
+import { useState } from "react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons"
 
-import { config } from "@fortawesome/fontawesome-svg-core";
-import "@fortawesome/fontawesome-svg-core/styles.css";
-config.autoAddCss = false;
+import { config } from "@fortawesome/fontawesome-svg-core"
+import "@fortawesome/fontawesome-svg-core/styles.css"
+config.autoAddCss = false
 
 export default function ChatPage() {
-  const [messageText, setMessageText] = useState("");
+  const [messageText, setMessageText] = useState("")
   const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("MESSAGE TEXT: ", messageText);
-  };
+    e.preventDefault()
+    console.log("MESSAGE TEXT: ", messageText)
+  }
 
   return (
     <>
@@ -50,5 +50,5 @@ export default function ChatPage() {
         </div>
       </div>
     </>
-  );
+  )
 }
