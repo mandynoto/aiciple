@@ -6,13 +6,31 @@ import { faPaperPlane } from "@fortawesome/free-solid-svg-icons"
 
 import { config } from "@fortawesome/fontawesome-svg-core"
 import "@fortawesome/fontawesome-svg-core/styles.css"
+import { streamReader } from "openai-edge-stream"
 config.autoAddCss = false
 
 export default function ChatPage() {
+  const [incomingMessage, setIncomingMessage] = useState("")
   const [messageText, setMessageText] = useState("")
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     console.log("MESSAGE TEXT: ", messageText)
+    const response = await fetch(`/api/chat/sendMessage`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ message: messageText }),
+    })
+    const data = response.body
+    if (!data) {
+      return
+    }
+    const reader = data.getReader()
+    await streamReader(reader, (message) => {
+      console.log("MESSAGE: ", message)
+      setIncomingMessage((s) => `${s}${message.content}`)
+    })
   }
 
   return (
@@ -23,7 +41,7 @@ export default function ChatPage() {
       <div className="grid h-screen grid-cols-[260px_1fr]">
         <ChatSidebar />
         <div className="normal-bg normal-text flex flex-col ">
-          <div className="flex-1">chat window</div>
+          <div className="flex-1">{incomingMessage}</div>
           <footer className="normal-footer-bg normal-text p-0.5">
             <form onSubmit={handleSubmit}>
               <fieldset className="flex gap-2">
