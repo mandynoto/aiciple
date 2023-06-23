@@ -20,16 +20,23 @@ module.exports = {
         },
         footer: {
           dark: "#515360",
-          light: "#e3e3e3",
+          // light: "#eff0f2",
+          // light: "#eff0f2",
+          // light: "#FFFFFF",
+          light: "#fcfcfc",
         },
         front: {
           light: "#FFFFFF",
           dark: "#000000",
         },
         side: {
-          light: "#515360",
+          light: "#F5F6F8",
           // dark: "#6c6561",
           dark: "#202123",
+        },
+        text: {
+          light: "#FFFFFF",
+          dark: "#000000",
         },
       },
     },
