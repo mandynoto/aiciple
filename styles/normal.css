@@ -13,6 +13,6 @@
 .sidebar {
   @apply bg-side-light text-front-light dark:bg-side-dark;
 }
-.chat-window{
-  @apply normal-text normal-bg
+.chat-window {
+  @apply normal-text normal-bg;
 }
