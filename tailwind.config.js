@@ -12,7 +12,7 @@ module.exports = {
     extend: {
       colors: {
         hangin: "#3F83D1", // Replace with your desired color value
-        "hangin-100": "#ab9c7f", // Replace with your desired color value
+        "hangin-100": "#C4A484", // Replace with your desired color value
         "hangin-200": "#958669", // Replace with your desired color value
         normal: {
           dark: "#444653",
@@ -37,6 +37,14 @@ module.exports = {
         text: {
           light: "#FFFFFF",
           dark: "#000000",
+        },
+        aiciple: {
+          light: "#eeeeef",
+          dark: "#4e505d",
+        },
+        "aiciple-icon": {
+          light: "#C4A484",
+          dark: "#C4A484",
         },
       },
     },
