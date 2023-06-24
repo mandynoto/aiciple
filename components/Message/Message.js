@@ -2,6 +2,7 @@ import { useUser } from "@auth0/nextjs-auth0/client"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBookOpenReader } from "@fortawesome/free-solid-svg-icons"
 import Image from "next/image"
+import { ReactMarkdown } from "react-markdown/lib/react-markdown"
 
 export const Message = ({ role, content }) => {
   const { user } = useUser()
@@ -9,7 +10,7 @@ export const Message = ({ role, content }) => {
   return (
     <div
       className={`grid grid-cols-[30px_1fr] gap-5 p-5 ${
-        role === "assistant" ? "normal-aiciple-bg" : ""
+        role === "assistant" ? "normal-aiciple-bg" : "normal-bg normal-text"
       }`}
     >
       <div>
@@ -28,7 +29,13 @@ export const Message = ({ role, content }) => {
           </div>
         )}
       </div>
-      <div>{content}</div>
+      <div
+        className={`prose ${
+          role === "assistant" ? "prose-assistant" : "normal-bg normal-text"
+        }`}
+      >
+        <ReactMarkdown>{content}</ReactMarkdown>
+      </div>
     </div>
   )
 }

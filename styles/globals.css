@@ -6,4 +6,18 @@
   .submit {
     @apply rounded-md bg-hangin-100 px-4 py-2 text-white hover:bg-hangin-200 disabled:bg-aiciple-light;
   }
+  .prose {
+    /* shared styles for all prose elements */
+  }
+
+  .prose-assistant {
+    @apply bg-aiciple-light text-black dark:bg-aiciple-dark dark:text-white; /* Replace with the color you want for assistant messages */
+  }
+  .prose-assistant ol {
+    @apply text-white;
+  }
+
+  .prose-user {
+    @apply text-black dark:bg-normal-dark dark:text-black dark:text-white; /* Replace with the color you want for user messages */
+  }
 }

@@ -46,6 +46,14 @@ module.exports = {
           light: "#C4A484",
           dark: "#C4A484",
         },
+        prose: {
+          light: "#F6F7F8",
+          dark: "#292C33",
+        },
+        "code-block": {
+          light: "#F6F7F8",
+          dark: "#292C33",
+        },
       },
     },
   },
