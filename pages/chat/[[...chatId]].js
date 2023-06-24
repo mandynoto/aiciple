@@ -31,7 +31,7 @@ export default function ChatPage() {
       ]
       return newChatMessages
     }),
-      console.log("MESSAGE TEXT: ", messageText)
+      setMessageText("")
     const response = await fetch(`/api/chat/sendMessage`, {
       method: "POST",
       headers: {
