@@ -15,9 +15,11 @@ export default function ChatPage() {
   const [incomingMessage, setIncomingMessage] = useState("")
   const [messageText, setMessageText] = useState("")
   const [newChatMessages, setNewChatMessages] = useState([])
+  const [generatingResponse, setGeneratingResponse] = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setGeneratingResponse(true)
     setNewChatMessages((prev) => {
       const newChatMessages = [
         ...prev,
@@ -46,6 +48,7 @@ export default function ChatPage() {
       console.log("MESSAGE: ", message)
       setIncomingMessage((s) => `${s}${message.content}`)
     })
+    setGeneratingResponse(false)
   }
 
   return (
@@ -70,11 +73,11 @@ export default function ChatPage() {
           </div>
           <footer className="normal-footer-bg normal-text p-0.5">
             <form onSubmit={handleSubmit}>
-              <fieldset className="flex gap-2">
+              <fieldset className="flex gap-2" disabled={generatingResponse}>
                 <textarea
                   value={messageText}
                   onChange={(e) => setMessageText(e.target.value)}
-                  placeholder="Send a message"
+                  placeholder={generatingResponse ? "" : "Send a message"}
                   className="normal-footer-bg normal-text w-full resize-none rounded-md p-2 outline-none focus:border-hangin-100  dark:bg-black dark:focus:border-hangin-100"
                   style={{ paddingTop: "30px" }}
                 />
