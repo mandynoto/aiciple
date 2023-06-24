@@ -1,55 +1,19 @@
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { ChatSidebar } from "components/ChatSidebar"
-import { Message } from "components/Message"
-import Head from "next/head"
-import { useState } from "react"
-import { v4 as uuid } from "uuid"
+import { ChatSidebar } from "components/ChatSidebar";
+import Head from "next/head";
+import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 
-import { config } from "@fortawesome/fontawesome-svg-core"
-import "@fortawesome/fontawesome-svg-core/styles.css"
-import { streamReader } from "openai-edge-stream"
-config.autoAddCss = false
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+config.autoAddCss = false;
 
 export default function ChatPage() {
-  const [incomingMessage, setIncomingMessage] = useState("")
-  const [messageText, setMessageText] = useState("")
-  const [newChatMessages, setNewChatMessages] = useState([])
-  const [generatingResponse, setGeneratingResponse] = useState(false)
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setGeneratingResponse(true)
-    setNewChatMessages((prev) => {
-      const newChatMessages = [
-        ...prev,
-        {
-          _id: uuid(),
-          role: "user",
-          content: messageText,
-        },
-      ]
-      return newChatMessages
-    }),
-      setMessageText("")
-    const response = await fetch(`/api/chat/sendMessage`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ message: messageText }),
-    })
-    const data = response.body
-    if (!data) {
-      return
-    }
-    const reader = data.getReader()
-    await streamReader(reader, (message) => {
-      console.log("MESSAGE: ", message)
-      setIncomingMessage((s) => `${s}${message.content}`)
-    })
-    setGeneratingResponse(false)
-  }
+  const [messageText, setMessageText] = useState("");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("MESSAGE TEXT: ", messageText);
+  };
 
   return (
     <>
@@ -58,26 +22,15 @@ export default function ChatPage() {
       </Head>
       <div className="grid h-screen grid-cols-[260px_1fr]">
         <ChatSidebar />
-        <div className="normal-bg normal-text flex flex-col overflow-hidden">
-          <div className="flex-1 overflow-auto">
-            {newChatMessages.map((message) => (
-              <Message
-                key={message._id}
-                role={message.role}
-                content={message.content}
-              />
-            ))}
-            {!!incomingMessage && (
-              <Message role="assistant" content={incomingMessage} />
-            )}
-          </div>
+        <div className="normal-bg normal-text flex flex-col ">
+          <div className="flex-1">chat window</div>
           <footer className="normal-footer-bg normal-text p-0.5">
             <form onSubmit={handleSubmit}>
-              <fieldset className="flex gap-2" disabled={generatingResponse}>
+              <fieldset className="flex gap-2">
                 <textarea
                   value={messageText}
                   onChange={(e) => setMessageText(e.target.value)}
-                  placeholder={generatingResponse ? "" : "Send a message"}
+                  placeholder="Send a message"
                   className="normal-footer-bg normal-text w-full resize-none rounded-md p-2 outline-none focus:border-hangin-100  dark:bg-black dark:focus:border-hangin-100"
                   style={{ paddingTop: "30px" }}
                 />
@@ -97,5 +50,5 @@ export default function ChatPage() {
         </div>
       </div>
     </>
-  )
+  );
 }
