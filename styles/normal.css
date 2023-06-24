@@ -10,6 +10,12 @@
 .normal-sidebar-bg {
   @apply bg-side-light dark:bg-side-dark;
 }
+.normal-aiciple-bg {
+  @apply bg-aiciple-light dark:bg-aiciple-dark;
+}
+.aiciple-icon {
+  @apply text-aiciple-icon-light dark:text-aiciple-icon-dark;
+}
 .sidebar {
   @apply bg-side-light text-front-dark dark:bg-side-dark;
 }
