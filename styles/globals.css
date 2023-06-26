@@ -4,7 +4,7 @@
 
 @layer components {
   .submit {
-    @apply rounded-md bg-hangin-100 px-4 py-2 text-white hover:bg-hangin-200 disabled:bg-aiciple-light;
+    @apply m-2 rounded-md bg-hangin-100 px-4 py-2 text-white hover:bg-hangin-200 disabled:bg-aiciple-light;
   }
   .prose {
     /* shared styles for all prose elements */
@@ -39,5 +39,46 @@
   .prose-user *::before,
   .prose-user *::after {
     @apply text-white;
+  }
+
+  .normal-bg {
+    @apply bg-normal-light dark:bg-normal-dark;
+  }
+  .normal-text {
+    @apply text-front-dark dark:text-front-light;
+  }
+  .normal-text-2 {
+    @apply text-front-light dark:text-front-dark;
+  }
+  .normal-footer-bg {
+    @apply bg-footer-light dark:bg-footer-dark;
+  }
+  .normal-sidebar-bg {
+    @apply bg-side-light dark:bg-side-dark;
+  }
+  .normal-aiciple-bg {
+    @apply bg-aiciple-light dark:bg-aiciple-dark;
+  }
+  .aiciple-icon {
+    @apply text-aiciple-icon-light dark:text-aiciple-icon-dark;
+  }
+  .sidebar {
+    @apply bg-side-light text-front-dark dark:bg-side-dark;
+  }
+  .chat-window {
+    @apply normal-text normal-bg;
+  }
+
+  .sidebar-item {
+    @apply m-2 flex items-center gap-4 rounded-md p-2 hover:bg-hangin-200;
+  }
+  /* .sidebar-item-newchat { */
+  /*   @apply outline  outline-hangin-200/40; */
+  /* } */
+  .sidebar-item-newchat {
+    @apply bg-hangin-100/5;
+  }
+  .sidebar-item-logout {
+    @apply bg-hangin-100/5;
   }
 }
