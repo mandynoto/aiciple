@@ -71,7 +71,7 @@ export default function ChatPage() {
               <Message role="assistant" content={incomingMessage} />
             )}
           </div>
-          <footer className="normal-footer-bg normal-text p-0.5">
+          <footer className="normal-bg normal-text p-0.5">
             <form onSubmit={handleSubmit}>
               <fieldset className="flex gap-2" disabled={generatingResponse}>
                 <textarea
