@@ -31,7 +31,7 @@ export const Message = ({ role, content }) => {
       </div>
       <div
         className={`prose ${
-          role === "assistant" ? "prose-assistant" : "normal-bg normal-text"
+          role === "assistant" ? "dark:prose-invert" : "dark:prose-invert"
         }`}
       >
         <ReactMarkdown>{content}</ReactMarkdown>

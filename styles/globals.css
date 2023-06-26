@@ -20,4 +20,24 @@
   .prose-user {
     @apply text-black dark:bg-normal-dark dark:text-black dark:text-white; /* Replace with the color you want for user messages */
   }
+
+  .prose-assistant {
+    @apply bg-aiciple-light text-black dark:bg-aiciple-dark dark:text-white;
+  }
+
+  .prose-assistant *,
+  .prose-assistant *::before,
+  .prose-assistant *::after {
+    @apply text-white;
+  }
+
+  .prose-user {
+    @apply text-black dark:bg-normal-dark dark:text-white;
+  }
+
+  .prose-user *,
+  .prose-user *::before,
+  .prose-user *::after {
+    @apply text-white;
+  }
 }
