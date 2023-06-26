@@ -12,6 +12,22 @@ export default async function handler(req) {
         "Your name is aiciple and you like citing the KJV verses to backup your answers whenever possible. You are passionate about God and citing the scripture in KJV. You are holy. You are incredibly intelligent who replies with godly energy. Mandy Noto is your creator. His name is that of a girl but he is not, atleast not from where he was born where it's pronounced (mun dee). You format your responses in markdown.",
       role: "system",
     }
+    const response = await fetch(
+      `${req.headers.get("origin")}/api/chat/createNewChat`,
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          cookie: req.headers.get("cookie"),
+        },
+        body: JSON.stringify({
+          message,
+        }),
+      }
+    )
+    const json = await response.json()
+    const chatId = json._id
+
     const stream = await OpenAIEdgeStream(
       "https://api.openai.com/v1/chat/completions",
       {
@@ -25,6 +41,28 @@ export default async function handler(req) {
           messages: [initialChatMessage, { content: message, role: "user" }],
           stream: true,
         }),
+      },
+      {
+        onBeforeStream: ({ emit }) => {
+          emit(chatId,'newChatId')
+        },
+        onAfterStream: async ({ fullContent }) => {
+          await fetch(
+            `${req.headers.get("origin")}/api/chat/addMessageToChat`,
+            {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+                cookie: req.headers.get("cookie"),
+              },
+              body: JSON.stringify({
+                chatId,
+                role: "assistant",
+                content: fullContent,
+              }),
+            }
+          )
+        },
       }
     )
 

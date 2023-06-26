@@ -1,13 +1,13 @@
 import { faMessage } from "@fortawesome/free-regular-svg-icons"
 import {
-  faPlus,
   faArrowRightFromBracket,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 
-export const ChatSidebar = () => {
+export const ChatSidebar = ({ chatId }) => {
   const [chatList, setChatList] = useState([])
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export const ChatSidebar = () => {
       setChatList(json?.chats || [])
     }
     loadChatList()
-  }, [])
+  }, [chatId])
 
   return (
     <div className="sidebar flex flex-col overflow-hidden">
@@ -36,7 +36,11 @@ export const ChatSidebar = () => {
           <Link
             key={chat._id}
             href={`/chat/${chat._id}`}
-            className="normal-text sidebar-item"
+            className={`"normal-text sidebar-item ${
+              chatId === chat._id
+                ? "bg-hangin-100 hover:bg-hangin-100"
+                : "normal-text sidebar-item"
+            }`}
           >
             <FontAwesomeIcon icon={faMessage} className="mr-1 text-xs" />
 

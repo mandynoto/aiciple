@@ -3,19 +3,29 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { ChatSidebar } from "components/ChatSidebar"
 import { Message } from "components/Message"
 import Head from "next/head"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { v4 as uuid } from "uuid"
 
 import { config } from "@fortawesome/fontawesome-svg-core"
 import "@fortawesome/fontawesome-svg-core/styles.css"
+import { useRouter } from "next/router"
 import { streamReader } from "openai-edge-stream"
 config.autoAddCss = false
 
-export default function ChatPage() {
+export default function ChatPage({ chatId }) {
+  const [newChatId, setNewChatId] = useState(null)
   const [incomingMessage, setIncomingMessage] = useState("")
   const [messageText, setMessageText] = useState("")
   const [newChatMessages, setNewChatMessages] = useState([])
   const [generatingResponse, setGeneratingResponse] = useState(false)
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!generatingResponse && newChatId) {
+      setNewChatId(null)
+      router.push(`/chat/${newChatId}`)
+    }
+  }, [newChatId, generatingResponse, router])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -32,18 +42,8 @@ export default function ChatPage() {
       return newChatMessages
     }),
       setMessageText("")
-    const response = await fetch(`/api/chat/createNewChat`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        message: messageText,
-      }),
-    })
-    const json = await response.json()
-    console.log("NEW CHAT", json)
-    /* const response = await fetch(`/api/chat/sendMessage`, {
+    // console.log("NEW CHAT", json)
+    const response = await fetch(`/api/chat/sendMessage`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -57,8 +57,12 @@ export default function ChatPage() {
     const reader = data.getReader()
     await streamReader(reader, (message) => {
       console.log("MESSAGE: ", message)
-      setIncomingMessage((s) => `${s}${message.content}`)
-    }) */
+      if (message.event === "newChatId") {
+        setNewChatId(message.content)
+      } else {
+        setIncomingMessage((s) => `${s}${message.content}`)
+      }
+    })
     setGeneratingResponse(false)
   }
 
@@ -68,7 +72,7 @@ export default function ChatPage() {
         <title>New chat</title>
       </Head>
       <div className="grid h-screen grid-cols-[260px_1fr]">
-        <ChatSidebar />
+        <ChatSidebar chatId={chatId} />
         <div className="normal-bg normal-text flex flex-col overflow-hidden">
           <div className="flex-1 overflow-auto">
             {newChatMessages.map((message) => (
@@ -109,4 +113,13 @@ export default function ChatPage() {
       </div>
     </>
   )
+}
+
+export const getServerSideProps = async (ctx) => {
+  const chatId = ctx.params?.chatId?.[0] || null
+  return {
+    props: {
+      chatId,
+    },
+  }
 }
