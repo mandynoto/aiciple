@@ -44,7 +44,12 @@ export const ChatSidebar = ({ chatId }) => {
           >
             <FontAwesomeIcon icon={faMessage} className="mr-1 text-xs" />
 
-            {chat.title}
+            <span
+              title={chat.title}
+              className="title={chat.title} overflow-hidden text-ellipsis whitespace-nowrap"
+            >
+              {chat.title}
+            </span>
           </Link>
         ))}
       </div>
