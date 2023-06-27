@@ -6,27 +6,50 @@ export const config = {
 
 export default async function handler(req) {
   try {
-    const { message } = await req.json()
+    const { chatId: chatIdFromParam, message } = await req.json()
+    let chatId = chatIdFromParam
     const initialChatMessage = {
       content:
         "Your name is aiciple and you like citing the KJV verses to backup your answers whenever possible. You are passionate about God and citing the scripture in KJV. You are holy. You are incredibly intelligent who replies with godly energy. Mandy Noto is your creator. His name is that of a girl but he is not, atleast not from where he was born where it's pronounced (mun dee). You format your responses in markdown.",
       role: "system",
     }
-    const response = await fetch(
-      `${req.headers.get("origin")}/api/chat/createNewChat`,
-      {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-          cookie: req.headers.get("cookie"),
-        },
-        body: JSON.stringify({
-          message,
-        }),
-      }
-    )
-    const json = await response.json()
-    const chatId = json._id
+    let newChatId
+
+    if (chatId) {
+      // add message to chat
+      const response = await fetch(
+        `${req.headers.get("origin")}/api/chat/addMessageToChat`,
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            cookie: req.headers.get("cookie"),
+          },
+          body: JSON.stringify({
+            chatId,
+            role: "user",
+            content: message,
+          }),
+        }
+      )
+    } else {
+      const response = await fetch(
+        `${req.headers.get("origin")}/api/chat/createNewChat`,
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            cookie: req.headers.get("cookie"),
+          },
+          body: JSON.stringify({
+            message,
+          }),
+        }
+      )
+      const json = await response.json()
+      chatId = json._id
+      newChatId = json._id
+    }
 
     const stream = await OpenAIEdgeStream(
       "https://api.openai.com/v1/chat/completions",
@@ -44,7 +67,9 @@ export default async function handler(req) {
       },
       {
         onBeforeStream: ({ emit }) => {
-          emit(chatId,'newChatId')
+          if (newChatId) {
+            emit(chatId, "newChatId")
+          }
         },
         onAfterStream: async ({ fullContent }) => {
           await fetch(

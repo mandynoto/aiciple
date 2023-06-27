@@ -30,7 +30,7 @@ export default async function handler(req, res) {
     res.status(200).json({
       chat: {
         ...value.value,
-        _id:chat.value_id.toString()
+        _id: chat.value_id.toString(),
       },
     })
   } catch (e) {
