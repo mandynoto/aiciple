@@ -29,8 +29,8 @@ export default async function handler(req, res) {
 
     res.status(200).json({
       chat: {
-        ...value.value,
-        _id: chat.value_id.toString(),
+        ...chat.value,
+        _id: chat.value._id.toString(),
       },
     })
   } catch (e) {
