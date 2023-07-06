@@ -10,6 +10,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        body: "var(--font-outfit), sans-serif",
+      },
       colors: {
         hangin: "#3F83D1", // Replace with your desired color value
         "hangin-100": "#C4A484", // Replace with your desired color value
