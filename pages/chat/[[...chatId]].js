@@ -112,7 +112,7 @@ export default function ChatPage({ chatId, title, messages = [] }) {
         <ChatSidebar chatId={chatId} />
         <div className="normal-bg normal-text flex flex-col overflow-hidden">
           <div className="flex flex-1 flex-col-reverse overflow-auto">
-            <div>
+            <div className="mb-auto">
               {allMessages.map((message) => (
                 <Message
                   key={message._id}
