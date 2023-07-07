@@ -71,14 +71,19 @@
   .sidebar-scrollbar {
     flex: 1;
     overflow: auto;
+    padding-right: 8px; /* Adjust as needed to match your scrollbar's width */
   }
 
   .sidebar-scrollbar::-webkit-scrollbar {
-    width: 0;
+    width: 8px;
   }
 
-  .sidebar-scrollbar:hover::-webkit-scrollbar {
-    width: 8px;
+  .sidebar-scrollbar::-webkit-scrollbar-track {
+    background: transparent; /* Make the scrollbar transparent when not hovered */
+  }
+
+  .sidebar-scrollbar::-webkit-scrollbar-thumb {
+    background: transparent; /* Make the scrollbar transparent when not hovered */
   }
 
   .sidebar-scrollbar:hover::-webkit-scrollbar-thumb {
@@ -92,7 +97,6 @@
 
   .sidebar-scrollbar-content {
     width: 100%;
-    padding-right: 17px; /* Increase as needed */
   }
   .sidebar {
     @apply bg-side-light text-front-dark dark:bg-side-dark;
