@@ -5,6 +5,16 @@ export default async function handler(req, res) {
   try {
     const { user } = await getSession(req, res)
     const { message } = req.body
+
+    // Limit message data
+    if (!message || typeof message !== "string" || message.length > 200) {
+      res.status(422).json({
+        message:
+          "info: please write a non-empty message less than 200 characters",
+      })
+      return
+    }
+
     const newUserMessage = {
       role: "user",
       content: message,
