@@ -177,6 +177,16 @@ export default function ChatPage({ chatId, title, messages = [] }) {
 export const getServerSideProps = async (ctx) => {
   const chatId = ctx.params?.chatId?.[0] || null
   if (chatId) {
+    let objectId
+    try {
+      objectId = new ObjectId(chatId)
+    } catch (e) {
+      return {
+        redirect: {
+          destination: "/chat",
+        },
+      }
+    }
     const { user } = await getSession(ctx.req, ctx.res)
     const client = await clientPromise
     const db = client.db("aiciple")
