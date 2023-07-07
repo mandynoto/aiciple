@@ -15,7 +15,7 @@ export default function Home() {
       <Head>
         <title>aiciple - login or signup</title>
       </Head>
-      <div className="normal-bg flex min-h-screen w-full flex-col items-center justify-between py-0 text-center text-white">
+      <div className="flex min-h-screen w-full flex-col items-center justify-between bg-white py-0 text-center text-white">
         <div>
           <div>
             <FontAwesomeIcon
@@ -24,7 +24,7 @@ export default function Home() {
               bounce
             />
           </div>
-          <h1 className="normal-text mb-10 text-8xl font-bold">aiciple</h1>
+          <h1 className="mb-10 text-8xl font-bold text-black">aiciple</h1>
           <div>
             <div>
               {!user && (
