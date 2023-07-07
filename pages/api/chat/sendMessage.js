@@ -7,6 +7,19 @@ export const config = {
 export default async function handler(req) {
   try {
     const { chatId: chatIdFromParam, message } = await req.json()
+
+    // Limit message data
+    if (!message || typeof message !== "string" || message.length > 200) {
+      return new Response(
+        {
+          message:
+            "info: please write a non-empty message less than 200 characters",
+        },
+        {
+          status: 422,
+        }
+      )
+    }
     let chatId = chatIdFromParam
     const initialChatMessage = {
       content:
@@ -113,6 +126,11 @@ export default async function handler(req) {
 
     return new Response(stream)
   } catch (err) {
-    console.log("error: sendMessage failed")
+    return new Response(
+      { message: "An error occurred in sendMessage" },
+      {
+        status: 500,
+      }
+    )
   }
 }
