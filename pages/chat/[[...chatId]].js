@@ -151,6 +151,12 @@ export default function ChatPage({ chatId, title, messages = [] }) {
                 <textarea
                   value={messageText}
                   onChange={(e) => setMessageText(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey) {
+                      e.preventDefault()
+                      handleSubmit(e)
+                    }
+                  }}
                   placeholder={generatingResponse ? "" : "Send a message"}
                   className="normal-footer-bg normal-text w-full resize-none rounded-md p-2 outline-none focus:border-hangin-100  dark:bg-black dark:focus:border-hangin-100"
                   style={{ paddingTop: "30px" }}
