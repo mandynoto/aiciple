@@ -6,6 +6,12 @@
   .submit {
     @apply m-2 rounded-md bg-hangin-100 px-4 py-2 text-white hover:bg-hangin-200 disabled:bg-aiciple-light;
   }
+  .signup {
+    @apply m-2 rounded-md bg-white px-4 py-2 text-black  disabled:bg-aiciple-light;
+  }
+  .signin {
+    @apply m-2 rounded-md bg-black px-4 py-2 text-white disabled:bg-aiciple-light;
+  }
   .prose {
     /* shared styles for all prose elements */
   }

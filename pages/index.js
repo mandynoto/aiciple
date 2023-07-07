@@ -2,6 +2,8 @@ import { useUser } from "@auth0/nextjs-auth0/client"
 import Head from "next/head"
 import Link from "next/link"
 import { getSession } from "@auth0/nextjs-auth0"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faBookOpenReader } from "@fortawesome/free-solid-svg-icons"
 
 export default function Home() {
   const { isLoading, error, user } = useUser()
@@ -13,19 +15,27 @@ export default function Home() {
       <Head>
         <title>aiciple - login or signup</title>
       </Head>
-      <div className="flex min-h-screen w-full items-center justify-center bg-gray-800 text-center text-white">
+      <div className="normal-bg flex min-h-screen w-full flex-col items-center justify-between py-0 text-center text-white">
         <div>
-          {!!user && <Link href="api/auth/logout">Logout</Link>}
-          {!user && (
-            <>
-              <Link href="/api/auth/login" className="submit">
-                Login
-              </Link>
-              <Link href="/api/auth/signup" className="submit">
-                Sign up
-              </Link>
-            </>
-          )}
+          <div>
+            <FontAwesomeIcon
+              icon={faBookOpenReader}
+              className="text-1xl fa-bounce mb-10 mt-20 text-aiciple-icon-light opacity-50"
+              bounce
+            />
+          </div>
+          <h1 className="normal-text mb-10 text-8xl font-bold">aiciple</h1>
+          <div>
+            <div>
+              {!user && (
+                <>
+                  <Link href="/api/auth/login" className="signin">
+                    Login
+                  </Link>
+                </>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </>
