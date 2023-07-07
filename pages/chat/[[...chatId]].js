@@ -1,5 +1,6 @@
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faBookOpenReader } from "@fortawesome/free-solid-svg-icons"
 import { ChatSidebar } from "components/ChatSidebar"
 import { Message } from "components/Message"
 import Head from "next/head"
@@ -112,24 +113,37 @@ export default function ChatPage({ chatId, title, messages = [] }) {
         <ChatSidebar chatId={chatId} />
         <div className="normal-bg normal-text flex flex-col overflow-hidden">
           <div className="flex flex-1 flex-col-reverse overflow-auto">
-            <div className="mb-auto">
-              {allMessages.map((message) => (
-                <Message
-                  key={message._id}
-                  role={message.role}
-                  content={message.content}
-                />
-              ))}
-              {!!incomingMessage && !routeHasChanged && (
-                <Message role="assistant" content={incomingMessage} />
-              )}
-              {!!incomingMessage && !!routeHasChanged && (
-                <Message
-                  role="notice"
-                  content="Sorry, aiciple will be with you shortly."
-                />
-              )}
-            </div>
+            {!allMessages.length && !incomingMessage && (
+              <div className="m-auto flex items-center justify-center text-center">
+                <div>
+                  <FontAwesomeIcon
+                    icon={faBookOpenReader}
+                    className="text-6xl text-aiciple-icon-light"
+                  />
+                  <h1 className="mt-2 text-5xl opacity-30">aiciple</h1>
+                </div>
+              </div>
+            )}
+            {!!allMessages.length && (
+              <div className="mb-auto">
+                {allMessages.map((message) => (
+                  <Message
+                    key={message._id}
+                    role={message.role}
+                    content={message.content}
+                  />
+                ))}
+                {!!incomingMessage && !routeHasChanged && (
+                  <Message role="assistant" content={incomingMessage} />
+                )}
+                {!!incomingMessage && !!routeHasChanged && (
+                  <Message
+                    role="notice"
+                    content="Sorry, aiciple will be with you shortly."
+                  />
+                )}
+              </div>
+            )}
           </div>
           <footer className="normal-bg normal-text p-0.5">
             <form onSubmit={handleSubmit}>

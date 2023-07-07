@@ -42,7 +42,10 @@ export const ChatSidebar = ({ chatId }) => {
                 : "normal-text sidebar-item"
             }`}
           >
-            <FontAwesomeIcon icon={faMessage} className="mr-1 text-xs" />
+            <FontAwesomeIcon
+              icon={faMessage}
+              className="mr-1 text-xs opacity-70"
+            />
 
             <span
               title={chat.title}
