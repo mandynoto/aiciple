@@ -192,8 +192,15 @@ export const getServerSideProps = async (ctx) => {
     const db = client.db("aiciple")
     const chat = await db.collection("chats").findOne({
       userId: user.sub,
-      _id: new ObjectId(chatId),
+      _id: objectId,
     })
+    if (!chat) {
+      return {
+        redirect: {
+          destination: "/chat",
+        },
+      }
+    }
     return {
       props: {
         chatId,
