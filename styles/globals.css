@@ -68,6 +68,32 @@
   .aiciple-icon {
     @apply text-aiciple-icon-light dark:text-aiciple-icon-dark;
   }
+  .sidebar-scrollbar {
+    flex: 1;
+    overflow: auto;
+  }
+
+  .sidebar-scrollbar::-webkit-scrollbar {
+    width: 0;
+  }
+
+  .sidebar-scrollbar:hover::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .sidebar-scrollbar:hover::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+
+  .sidebar-scrollbar:hover::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  .sidebar-scrollbar-content {
+    width: 100%;
+    padding-right: 17px; /* Increase as needed */
+  }
   .sidebar {
     @apply bg-side-light text-front-dark dark:bg-side-dark;
   }
