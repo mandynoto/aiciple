@@ -17,6 +17,11 @@ import { ObjectId } from "mongodb"
 config.autoAddCss = false
 
 export default function ChatPage({ chatId, title, messages = [] }) {
+  const [apiKey, setApiKey] = useState(null)
+  useEffect(() => {
+    const userApiKey = window.prompt("Please enter your OpenAI API key")
+    setApiKey(userApiKey)
+  }, [])
   console.log("props: ", title, messages)
   const [newChatId, setNewChatId] = useState(null)
   const [incomingMessage, setIncomingMessage] = useState("")
@@ -80,7 +85,7 @@ export default function ChatPage({ chatId, title, messages = [] }) {
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify({ chatId, message: messageText }),
+      body: JSON.stringify({ chatId, message: messageText, apiKey }),
     })
     const data = response.body
     if (!data) {

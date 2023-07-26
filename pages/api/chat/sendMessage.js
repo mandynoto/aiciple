@@ -6,7 +6,7 @@ export const config = {
 
 export default async function handler(req) {
   try {
-    const { chatId: chatIdFromParam, message } = await req.json()
+    const { chatId: chatIdFromParam, message, apiKey } = await req.json()
 
     // Limit message data
     if (!message || typeof message !== "string" || message.length > 200) {
@@ -89,7 +89,7 @@ export default async function handler(req) {
       {
         headers: {
           "content-type": "application/json",
-          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+          Authorization: `Bearer ${apiKey}`,
         },
         method: "POST",
         body: JSON.stringify({
